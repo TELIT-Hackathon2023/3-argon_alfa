@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour {
 	Vector3 previousPosition;
     Vector3 lastMoveDirection;
 
+	[SerializeField] private GameObject inventoryObj;
+
 	void Start () {
 		lIndex = rIndex = uIndex = dIndex = 0;
 		float distance = transform.position.z - Camera.main.transform.position.z;
@@ -49,6 +51,11 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			inventoryObj.SetActive(!inventoryObj.activeSelf);
+		}
+
 		if (canMove) {
 			Move ();
 		}

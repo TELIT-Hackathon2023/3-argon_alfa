@@ -18,3 +18,4 @@ Regiony sa otvárajú na základe levelu! to platí aj pri bossoch nemôže zabi
 Bossovia:
 Práve na zabitie bossov budú potrebovať rôzne relikvie alebo zbrane ktoré budú získavať z ťažkých questov kde sa naučia ako naprogramovať kalkulačku alebo niečo nové o dejepise
 
+https://andrground.itch.io/argon
