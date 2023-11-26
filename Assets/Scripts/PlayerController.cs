@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-
 		if (canMove) {
 			Move ();
 		}
@@ -60,19 +59,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			CancelInvoke("Fire");
-		}
-	}
-
-	void OnTriggerStay2D (Collider2D collider)
-	{
-		if (collider.gameObject.tag == "GardenObjects" || collider.gameObject.name == "Girl") {
-			float minYObject = collider.gameObject.transform.position.y - (collider.gameObject.GetComponent<Renderer> ().bounds.size.y) / 2;
-			float minYPlayer = transform.position.y - (GetComponent<Renderer> ().bounds.size.y) / 2;
-			if (minYPlayer < minYObject) {
-				transform.position = new Vector3 (transform.position.x, transform.position.y, collider.gameObject.transform.position.z - 1);
-			} else {
-				transform.position = new Vector3 (transform.position.x, transform.position.y, collider.gameObject.transform.position.z + 1);
-			}
 		}
 	}
 
@@ -88,12 +74,12 @@ public class PlayerController : MonoBehaviour {
             Vector2 direction = (_targetPos - (Vector2)transform.position).normalized;
         	transform.position = (Vector2)transform.position + direction * moveSpeed * Time.deltaTime;
         }
-        else if (_targetPos == (Vector2)transform.position) 
-        {
-            _targetPos = Vector3.zero;
-        }
+        
+		if (_targetPos != Vector2.zero && Vector2.Distance(_targetPos, (Vector2)transform.position) < 0.1f)
+		{
+			_targetPos = Vector2.zero;
+		}
 
-		Debug.Log(lastMoveDirection);
 		if ((Vector2)lastMoveDirection == Vector2.zero) {
 			GetComponent<SpriteRenderer> ().sprite = DownMovement [0];
 			return;
@@ -141,6 +127,18 @@ public class PlayerController : MonoBehaviour {
 				if(dIndex >= DownMovement.Length) {dIndex = 0;}
 			}
 		}
+	}
+
+	public void Stop()
+	{
+		_targetPos = Vector2.zero;
+		canMove = false;
+	}
+
+	public void EnableMove()
+	{
+		_targetPos = Vector2.zero;
+		canMove = true;
 	}
 
 	void Fire ()
